@@ -46,14 +46,14 @@ function HomePage() {
       title={`Good day, ${fullName}`}
       subtitle="Empower Credit Union"
     >
-      <section className="overflow-hidden rounded-3xl bg-primary p-6 text-primary-foreground shadow-xl shadow-primary/20">
+      <section className="overflow-hidden rounded-xl bg-primary p-6 text-primary-foreground shadow-lg shadow-primary/10">
         <p className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-primary-foreground/70">
           Total balance
         </p>
         {accounts.isLoading ? (
           <Skeleton className="mt-3 h-11 w-48 bg-primary-foreground/20" />
         ) : (
-          <p className="tnum mt-2 font-display text-[2.9rem] font-semibold leading-none tracking-tight">
+           <p className="tnum mt-2 font-display text-[3.15rem] font-normal leading-none">
             {currencySymbol()}
             {money.whole}
             <span className="text-2xl text-primary-foreground/70">.{money.fraction}</span>
@@ -70,7 +70,7 @@ function HomePage() {
           <Link
             key={action.to}
             to={action.to}
-            className="flex flex-col items-center gap-2 rounded-2xl border border-border bg-card px-2 py-4 text-center transition-transform active:scale-[0.97]"
+            className="flex flex-col items-center gap-2 rounded-lg border border-border bg-card px-2 py-4 text-center shadow-sm transition-[transform,border-color] active:scale-[0.97]"
           >
             <span className="grid size-10 place-items-center rounded-full bg-accent/25 text-accent-foreground">
               <action.icon className="size-[1.1rem]" />
@@ -98,7 +98,7 @@ function HomePage() {
                   key={account.id}
                   to="/accounts/$accountId"
                   params={{ accountId: account.id }}
-                  className="flex items-center gap-3 rounded-2xl border border-border bg-card p-4 transition-transform active:scale-[0.99]"
+                   className="flex items-center gap-3 rounded-lg border border-border bg-card p-4 shadow-sm transition-[transform,border-color] active:scale-[0.99]"
                 >
                   <div className="min-w-0 flex-1">
                     <p className="truncate font-semibold">{account.name}</p>
@@ -126,7 +126,7 @@ function HomePage() {
         ) : (transactions.data ?? []).length === 0 ? (
           <EmptyState>No activity yet.</EmptyState>
         ) : (
-          <ul className="rounded-2xl border border-border bg-card px-4">
+           <ul className="rounded-lg border border-border bg-card px-4 shadow-sm">
             {(transactions.data ?? []).map((txn) => (
               <TransactionRow key={txn.id} txn={txn} />
             ))}

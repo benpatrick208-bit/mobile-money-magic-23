@@ -27,14 +27,15 @@ export const Route = createFileRoute("/signup")({
 function SignupPage() {
   return (
     <SitePage>
-      <div className="mx-auto w-full max-w-md px-5 py-14">
-        <h1 className="font-display text-3xl font-semibold tracking-tight text-foreground">
+      <div className="mx-auto w-full max-w-md px-1 py-10 sm:py-14">
+        <p className="text-xs font-semibold uppercase text-primary">Membership in minutes</p>
+        <h1 className="mt-2 font-display text-4xl font-normal text-foreground">
           Open your account
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">
           Your membership comes with Everyday Checking and Member Savings, ready in seconds.
         </p>
-        <div className="mt-8">
+        <div className="mt-7">
           <AuthForm mode="signup" />
         </div>
         <p className="mt-6 text-center text-sm text-muted-foreground">

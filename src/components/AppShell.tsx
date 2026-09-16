@@ -1,6 +1,7 @@
 import { Link, useRouter } from "@tanstack/react-router";
 import { ArrowLeft, Camera, CircleUser, Home, PiggyBank, Receipt, Wallet } from "lucide-react";
 import type { ReactNode } from "react";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const TABS = [
   { to: "/home", label: "Home", icon: Home },
@@ -28,7 +29,7 @@ export function AppShell({
   return (
     <div className="min-h-screen bg-background pb-24">
       <header className="sticky top-0 z-20 border-b border-border/70 bg-background/85 backdrop-blur-lg">
-        <div className="mx-auto flex max-w-md items-center gap-3 px-5 pb-3 pt-5">
+        <div className="mx-auto flex max-w-md items-center gap-3 px-5 pb-3 pt-4">
           {back ? (
             <button
               type="button"
@@ -49,6 +50,7 @@ export function AppShell({
               {title}
             </h1>
           </div>
+          <ThemeToggle />
           {action ?? (
             <Link
               to="/profile"
@@ -61,7 +63,7 @@ export function AppShell({
         </div>
       </header>
 
-      <main className="mx-auto max-w-md px-5 pt-5">{children}</main>
+      <main className="mx-auto max-w-md px-5 pt-6">{children}</main>
 
       <nav className="fixed inset-x-0 bottom-0 z-30 border-t border-border/70 bg-card/95 backdrop-blur-lg">
         <ul className="mx-auto flex max-w-md items-stretch justify-between px-3 pb-[max(0.5rem,env(safe-area-inset-bottom))] pt-2">
@@ -69,10 +71,10 @@ export function AppShell({
             <li key={tab.to} className="flex-1">
               <Link
                 to={tab.to}
-                className="group flex flex-col items-center gap-1 rounded-xl px-1 py-1.5 text-muted-foreground transition-colors data-[status=active]:text-primary"
+                className="group flex flex-col items-center gap-1 rounded-lg px-1 py-1.5 text-muted-foreground transition-colors data-[status=active]:text-primary"
                 activeProps={{ "aria-current": "page" }}
               >
-                <span className="grid size-9 place-items-center rounded-xl transition-colors group-data-[status=active]:bg-primary/10">
+                <span className="grid size-9 place-items-center rounded-lg transition-colors group-data-[status=active]:bg-primary/10">
                   <tab.icon className="size-[1.15rem]" />
                 </span>
                 <span className="text-[0.63rem] font-semibold tracking-wide">{tab.label}</span>
