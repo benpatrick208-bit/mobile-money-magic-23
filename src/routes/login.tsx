@@ -27,14 +27,15 @@ export const Route = createFileRoute("/login")({
 function LoginPage() {
   return (
     <SitePage>
-      <div className="mx-auto w-full max-w-md px-5 py-14">
-        <h1 className="font-display text-3xl font-semibold tracking-tight text-foreground">
+      <div className="mx-auto w-full max-w-md px-1 py-10 sm:py-14">
+        <p className="text-xs font-semibold uppercase text-primary">Secure member access</p>
+        <h1 className="mt-2 font-display text-4xl font-normal text-foreground">
           Welcome back
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">
           Log in to your Empower accounts. Same login for the website and the app.
         </p>
-        <div className="mt-8">
+        <div className="mt-7">
           <AuthForm mode="signin" />
         </div>
         <p className="mt-6 text-center text-sm text-muted-foreground">

@@ -2,7 +2,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
-import { Fingerprint, Loader2, Lock } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, Fingerprint, Loader2, Lock } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -23,6 +23,7 @@ export function AuthForm({ mode }: { mode: "signin" | "signup" }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
+  const [step, setStep] = useState<1 | 2>(1);
 
 
   useEffect(() => {
@@ -43,6 +44,18 @@ export function AuthForm({ mode }: { mode: "signin" | "signup" }) {
 
   async function onSubmit(event: React.FormEvent) {
     event.preventDefault();
+    if (mode === "signup" && step === 1) {
+      const details = z.object({
+        fullName: z.string().trim().min(2, "Enter your full name").max(80),
+        email: z.string().trim().email("Enter a valid email address").max(255),
+      }).safeParse({ fullName, email });
+      if (!details.success) {
+        toast.error(details.error.issues[0]?.message ?? "Please check your details");
+        return;
+      }
+      setStep(2);
+      return;
+    }
     const parsed = credentials.safeParse({ email, password, fullName });
     if (!parsed.success) {
       toast.error(parsed.error.issues[0]?.message ?? "Please check your details");
@@ -98,9 +111,21 @@ export function AuthForm({ mode }: { mode: "signin" | "signup" }) {
 
   return (
 
-    <div className="rounded-3xl bg-card p-6 text-card-foreground shadow-2xl shadow-black/10">
+    <div className="rounded-xl border border-border bg-card p-6 text-card-foreground shadow-lg shadow-foreground/5">
+      {mode === "signup" ? (
+        <div className="mb-6">
+          <div className="flex items-center justify-between text-xs font-semibold text-muted-foreground">
+            <span>Step {step} of 2</span>
+            <span>{step === 1 ? "Your details" : "Secure your account"}</span>
+          </div>
+          <div className="mt-3 grid grid-cols-2 gap-2" aria-hidden="true">
+            <span className="h-1 rounded-full bg-primary" />
+            <span className={`h-1 rounded-full ${step === 2 ? "bg-primary" : "bg-muted"}`} />
+          </div>
+        </div>
+      ) : null}
       <form onSubmit={onSubmit} className="space-y-4">
-        {mode === "signup" ? (
+        {mode === "signup" && step === 1 ? (
           <div className="space-y-1.5">
             <Label htmlFor="fullName">Full name</Label>
             <Input
@@ -113,7 +138,7 @@ export function AuthForm({ mode }: { mode: "signin" | "signup" }) {
             />
           </div>
         ) : null}
-        <div className="space-y-1.5">
+        {mode === "signin" || step === 1 ? <div className="space-y-1.5">
           <Label htmlFor="email">Email</Label>
           <Input
             id="email"
@@ -126,9 +151,14 @@ export function AuthForm({ mode }: { mode: "signin" | "signup" }) {
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@example.com"
           />
-        </div>
-        <div className="space-y-1.5">
+        </div> : null}
+        {mode === "signin" || step === 2 ? <div className="space-y-1.5">
           <Label htmlFor="password">Password</Label>
+          {mode === "signup" ? (
+            <p className="pb-1 text-sm text-muted-foreground">
+              Creating membership for <span className="font-medium text-foreground">{email}</span>
+            </p>
+          ) : null}
           <Input
             id="password"
             type="password"
@@ -139,15 +169,34 @@ export function AuthForm({ mode }: { mode: "signin" | "signup" }) {
             onChange={(e) => setPassword(e.target.value)}
             placeholder="At least 8 characters"
           />
-        </div>
+          {mode === "signup" ? (
+            <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
+              <Check className="size-3.5 text-primary" /> Use at least 8 characters
+            </p>
+          ) : null}
+        </div> : null}
 
-        <Button type="submit" disabled={busy} className="h-12 w-full rounded-xl text-base">
-          {busy ? <Loader2 className="size-4 animate-spin" /> : <Lock className="size-4" />}
-          {mode === "signin" ? "Sign in securely" : "Create my membership"}
-        </Button>
+        <div className="flex gap-2">
+          {mode === "signup" && step === 2 ? (
+            <Button
+              type="button"
+              variant="outline"
+              size="icon"
+              onClick={() => setStep(1)}
+              aria-label="Back to your details"
+              className="size-12 shrink-0 rounded-lg"
+            >
+              <ArrowLeft />
+            </Button>
+          ) : null}
+          <Button type="submit" disabled={busy} className="h-12 flex-1 rounded-lg text-base">
+            {busy ? <Loader2 className="size-4 animate-spin" /> : mode === "signup" && step === 1 ? <ArrowRight /> : <Lock />}
+            {mode === "signin" ? "Sign in securely" : step === 1 ? "Continue" : "Create my membership"}
+          </Button>
+        </div>
       </form>
 
-      <div className="my-5 flex items-center gap-3 text-xs text-muted-foreground">
+      {mode === "signin" || step === 1 ? <><div className="my-5 flex items-center gap-3 text-xs text-muted-foreground">
         <span className="h-px flex-1 bg-border" />
         or
         <span className="h-px flex-1 bg-border" />
@@ -158,10 +207,10 @@ export function AuthForm({ mode }: { mode: "signin" | "signup" }) {
         variant="outline"
         disabled={busy}
         onClick={onGoogle}
-        className="h-12 w-full rounded-xl text-base"
+        className="h-12 w-full rounded-lg text-base"
       >
         Continue with Google
-      </Button>
+      </Button></> : null}
 
       <p className="mt-5 flex items-start gap-2 text-xs leading-relaxed text-muted-foreground">
         <Fingerprint className="mt-0.5 size-4 shrink-0" />

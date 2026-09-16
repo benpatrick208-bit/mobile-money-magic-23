@@ -95,7 +95,7 @@ function LandingPage() {
         <p className="text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
           Member owned since 1953
         </p>
-        <h1 className="mt-3 font-display text-[2.1rem] font-semibold leading-[1.08] tracking-tight text-foreground sm:text-4xl">
+        <h1 className="mt-3 max-w-2xl font-display text-[2.6rem] font-normal leading-[1.02] text-foreground sm:text-5xl">
           Banking that answers to you, not shareholders.
         </h1>
         <p className="mt-3 max-w-lg text-sm text-muted-foreground sm:text-base">
@@ -127,11 +127,11 @@ function LandingPage() {
           Your dashboard
         </SiteSectionTitle>
 
-        <div className="overflow-hidden rounded-3xl bg-primary p-6 text-primary-foreground shadow-xl shadow-primary/20">
+        <div className="overflow-hidden rounded-xl bg-primary p-6 text-primary-foreground shadow-lg shadow-primary/10">
           <p className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-primary-foreground/70">
             Total balance
           </p>
-          <p className="mt-2 font-display text-[2.6rem] font-semibold leading-none tracking-tight sm:text-[3rem]">
+           <p className="mt-2 font-display text-[3rem] font-normal leading-none sm:text-[3.5rem]">
             $12,480<span className="text-2xl text-primary-foreground/70">.65</span>
           </p>
           <p className="mt-3 text-xs text-primary-foreground/70">
@@ -143,7 +143,7 @@ function LandingPage() {
           {QUICK_ACTIONS.map((action) => (
             <div
               key={action.label}
-              className="flex flex-col items-center gap-2 rounded-2xl border border-border bg-card px-2 py-4 text-center"
+              className="flex flex-col items-center gap-2 rounded-lg border border-border bg-card px-2 py-4 text-center shadow-sm"
             >
               <span className="grid size-10 place-items-center rounded-full bg-accent/25 text-accent-foreground">
                 <action.icon className="size-[1.1rem]" />
@@ -160,7 +160,7 @@ function LandingPage() {
             {SAMPLE_ACCOUNTS.map((account) => (
               <div
                 key={account.mask}
-                className="flex items-center gap-3 rounded-2xl border border-border bg-card p-4"
+                 className="flex items-center gap-3 rounded-lg border border-border bg-card p-4 shadow-sm"
               >
                 <div className="min-w-0 flex-1">
                   <p className="truncate font-semibold text-foreground">{account.name}</p>
@@ -176,7 +176,7 @@ function LandingPage() {
             ))}
           </div>
 
-          <ul className="divide-y divide-border rounded-2xl border border-border bg-card px-4">
+          <ul className="divide-y divide-border rounded-lg border border-border bg-card px-4 shadow-sm">
             {SAMPLE_ACTIVITY.map((item) => (
               <li key={item.name} className="flex items-center gap-3 py-3.5">
                 <div className="min-w-0 flex-1">
@@ -201,7 +201,7 @@ function LandingPage() {
         <SiteSectionTitle>Everyday banking</SiteSectionTitle>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {ACCOUNT_FEATURES.map((item) => (
-            <article key={item.title} className="rounded-2xl border border-border bg-card p-5">
+            <article key={item.title} className="rounded-lg border border-border bg-card p-5 shadow-sm">
               <span className="grid size-10 place-items-center rounded-xl bg-secondary text-secondary-foreground">
                 <item.icon className="size-5" />
               </span>
@@ -219,7 +219,7 @@ function LandingPage() {
         <SiteSectionTitle>Money tools built in</SiteSectionTitle>
         <div className="grid gap-3 sm:grid-cols-2">
           {TOOL_FEATURES.map((item) => (
-            <article key={item.title} className="rounded-2xl border border-border bg-card p-5">
+            <article key={item.title} className="rounded-lg border border-border bg-card p-5 shadow-sm">
               <span className="grid size-10 place-items-center rounded-xl bg-secondary text-secondary-foreground">
                 <item.icon className="size-5" />
               </span>
@@ -235,7 +235,7 @@ function LandingPage() {
       {/* Deposit */}
       <section id="deposit" className="mt-10 scroll-mt-24">
         <SiteSectionTitle>Mobile deposit</SiteSectionTitle>
-        <div className="grid gap-4 rounded-3xl border border-border bg-card p-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
+        <div className="grid gap-4 rounded-xl border border-border bg-card p-6 shadow-sm lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
           <div>
             <span className="grid size-10 place-items-center rounded-xl bg-accent/25 text-accent-foreground">
               <Camera className="size-5" />
@@ -260,7 +260,7 @@ function LandingPage() {
       {/* Security */}
       <section id="security" className="mt-10 scroll-mt-24">
         <SiteSectionTitle>Security</SiteSectionTitle>
-        <div className="grid gap-5 rounded-3xl bg-primary p-6 text-primary-foreground sm:p-8">
+        <div className="grid gap-5 rounded-xl bg-primary p-6 text-primary-foreground sm:p-8">
           <div>
             <span className="grid size-10 place-items-center rounded-xl bg-primary-foreground/15">
               <ShieldCheck className="size-5" />
