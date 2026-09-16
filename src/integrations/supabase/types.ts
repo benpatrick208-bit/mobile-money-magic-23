@@ -18,7 +18,9 @@ export type Database = {
         Row: {
           balance_cents: number
           created_at: string
+          frozen_at: string | null
           id: string
+          is_frozen: boolean
           kind: string
           mask: string
           name: string
@@ -27,7 +29,9 @@ export type Database = {
         Insert: {
           balance_cents?: number
           created_at?: string
+          frozen_at?: string | null
           id?: string
+          is_frozen?: boolean
           kind?: string
           mask?: string
           name: string
@@ -36,7 +40,9 @@ export type Database = {
         Update: {
           balance_cents?: number
           created_at?: string
+          frozen_at?: string | null
           id?: string
+          is_frozen?: boolean
           kind?: string
           mask?: string
           name?: string
@@ -395,6 +401,7 @@ export type Database = {
         }
         Returns: string
       }
+      assert_account_active: { Args: { p_account: string }; Returns: undefined }
       perform_external_transfer: {
         Args: {
           p_account_number: string
@@ -429,6 +436,10 @@ export type Database = {
           p_payee: string
         }
         Returns: string
+      }
+      set_account_frozen: {
+        Args: { p_account: string; p_frozen: boolean; p_pin?: string }
+        Returns: boolean
       }
       set_transaction_pin: {
         Args: { p_current_pin?: string; p_pin: string }
