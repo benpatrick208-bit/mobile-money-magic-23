@@ -7,6 +7,8 @@ export type Account = {
   kind: string;
   mask: string;
   balance_cents: number;
+  is_frozen: boolean;
+  frozen_at: string | null;
 };
 
 export type Transaction = {
