@@ -14,6 +14,7 @@ import {
   X,
 } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const SECTIONS = [
   { href: "/#overview", label: "Overview", icon: LayoutDashboard },
@@ -26,7 +27,7 @@ const SECTIONS = [
 function Brand({ onNavigate }: { onNavigate?: (() => void) | undefined }) {
   return (
     <Link to="/" onClick={onNavigate} className="flex min-w-0 items-center gap-2.5">
-      <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-primary text-primary-foreground">
+      <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-primary text-primary-foreground">
         <ShieldCheck className="size-5" />
       </span>
       <span className="min-w-0 leading-none">
@@ -92,7 +93,7 @@ function SidebarBody({ onNavigate }: { onNavigate?: (() => void) | undefined }) 
         </Link>
       </nav>
 
-      <div className="mt-auto rounded-2xl bg-primary p-4 text-primary-foreground">
+      <div className="mt-auto rounded-lg bg-primary p-4 text-primary-foreground">
         <p className="font-display text-sm font-semibold">Bank in your pocket</p>
         <p className="mt-1 text-xs text-primary-foreground/75">
           One membership works on the site and in the app.
@@ -162,6 +163,7 @@ export function SitePage({ children }: { children: ReactNode }) {
             <div className="min-w-0">
               <Brand />
             </div>
+            <ThemeToggle />
             <Link
               to="/login"
               className="shrink-0 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground"
@@ -178,6 +180,7 @@ export function SitePage({ children }: { children: ReactNode }) {
               Member-owned banking · empowercu.com
             </p>
             <div className="flex items-center gap-2">
+              <ThemeToggle />
               <Link
                 to="/login"
                 className="rounded-full px-4 py-2 text-sm font-semibold text-foreground transition-colors hover:bg-muted"
